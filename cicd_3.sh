@@ -1,34 +1,39 @@
 #!/bin/sh
 PROJECT_DIR='/var/www/html/client_panel_react'
 PROJECT_BACKUP='/home/ec2-user'
+REDBOLD='\033[0;31;1m'
+GREENBOLD='\033[0;32;1m'
 
 echo 'Type Y for continue N for exit'
 read yesno
 if [ $yesno == 'Y' ]
 	then
-		echo 'Backup of file is started...'
+		echo '***********************************************************************************'
+		echo '*********************** Client Project CICD is Started ****************************'
+		echo '***********************************************************************************'
+		echo -e "${GREENBOLD} Backup of file is started..."
 		cp -r $PROJECT_DIR $PROJECT_BACKUP`date +'%Y%m%d_%H%M%S'`
-		echo 'Successfully backeuped files.'
+		echo -e "${GREENBOLD} Successfully backeuped files."
 		cd $PROJECT_DIR
-		echo 'removing node_modules and package-lock files'
-		#git pull origin main
+		git pull origin main
+		echo -e "${GREENBOLD} removing node_modules and package-lock files"
 		rm -rf node_modules
 		rm -r package-lock.json
-		echo 'installing project...'
+		echo -e "${REDBOLD} installing project..."
 		npm install
-		echo 'package installed'
+		echo -e "${GREENBOLD} package installed"
 		cp .env.staging .env
-		echo 'generating build, it may take few minutes....'
+		echo -e "${REDBOLD} generating build, it may take few minutes...."
 		npm run build
-		echo 'build is created.'
-		echo 'restarting webserver.....'
+		echo -e "${GREENBOLD} build is created."
+		echo -e "${REDBOLD} restarting webserver....."
 		service httpd restart
-		echo 'service started successfully'
+		echo -e "${GREENBOLD} service started successfully"
 		echo 'exit'
 elif [ $yesno == 'N' ]
 	then
 		echo 'You choose exit ' $yesno
 else
-	echo 'Invalid input provided. script is exit.'
+	echo -e "${REDBOLD} Invalid input provided. script is exit."
 fi
 
