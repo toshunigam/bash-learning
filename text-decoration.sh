@@ -8,3 +8,4 @@ echo -e "${BOLD} I am bold"
 echo -e "${NORMAL} I am noraml "
 echo -e "${GREENBOLD} I am green and bold "
 echo -e "${REDBOLD} I am red and bold "
+exit 1

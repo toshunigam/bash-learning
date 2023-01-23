@@ -32,10 +32,13 @@ if [ $yesno == 'Y' ]
 		service httpd restart
 		echo -e "${GREENBOLD} service started successfully"
 		echo 'exit'
+		exit 1
 elif [ $yesno == 'N' ]
 	then
 		echo 'You choose exit ' $yesno
+		exit 1
 else
 	echo -e "${REDBOLD} Invalid input provided. script is exit."
+	exit 1
 fi
 
